@@ -1,0 +1,87 @@
+
+
+@import "../../global.scss";
+.cart{
+
+    .cartwrapper{
+        width: 90%;
+        margin: 10px auto;
+        padding: 10px ;
+        display: flex;
+        justify-content: center;
+        color: $white;
+        flex-wrap: wrap;
+        gap: 20px;
+        @include mobile{
+            flex-direction: column;
+        }
+        .cartleft{
+            flex: 2;
+            box-shadow: 1px 1px 5px $white;
+            @include mobile{
+                width: 100%;
+            }
+            
+            .cartitem{
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                gap: 10px;
+                flex-wrap: wrap;
+                border-bottom: 1px solid $borderColor;
+                padding: 10px ;
+
+
+                img{
+                    width: 70px;
+                    height: 70px;
+                    object-fit: cover;
+                    border-radius: 50%;
+                }
+                h2{
+                    font-size: 25px;
+                    text-transform: capitalize;
+                    cursor: pointer;
+                }
+                .counter{
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 5px;
+                    button{
+                        border-bottom: 1px solid  $borderColor;
+                        padding: 5px;
+                        cursor: pointer;
+                    }
+                }
+                .price{
+                    font-size: 30px;
+                    font-weight: 500;
+                }
+                .actionbtn{
+                    color: $crimson;
+                }
+            }
+        }
+        .cartright{
+            flex: 1;
+            box-shadow: 1px 1px 5px $white;
+            padding: 10px 20px;
+            height: max-content;
+            p{
+                span{
+                    font-size: 20px;
+                    color: $crimson;
+                }
+            }
+            button{
+                border: 1px solid $borderColor;
+                padding: 5px 10px;
+                border-radius: 5px;
+                margin: 20px;
+            }
+            
+        }
+
+    }
+}

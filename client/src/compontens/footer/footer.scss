@@ -1,0 +1,44 @@
+
+@import "../../global.scss";
+
+
+.footer{
+    width: 100%;
+    height: max-content;
+    padding: 20px;
+    background-color: $gray;
+    .footerwrapper{
+        background-color: $hover;
+        margin: 10px auto;
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .footertop{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            a{
+                color: $maincolor;
+            }
+        }
+        .footerbottom{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin: 10px ;
+            a{
+                color: white;
+                i{
+                    font-size: 30px;
+                }
+            }
+
+        }
+    }
+}

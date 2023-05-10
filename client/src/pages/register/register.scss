@@ -1,0 +1,97 @@
+
+
+
+@import "../../global.scss";
+
+
+.register{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $white;
+
+    .registerwrapper{
+        width: 80%;
+        height: 100%;
+        margin-top: 50px;
+        @include mobile{
+            width:100%;
+
+        }
+        h1{
+            text-align: center;
+            padding: 10px;
+            margin: 10px;
+            color: $white;
+            font-size: 30px;
+        }
+        form{
+            width: 70%;
+            background-color: $hover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto;
+            padding: 20px;
+            @include mobile {
+                    width: 90%;
+                    background-color: transparent;
+                }
+           
+
+
+            .registerleft{
+                flex: 1;
+               
+            }
+            .registerright{
+                flex: 1;
+              
+            }
+        }
+        p{
+            text-align: center;
+            a{
+                color: blue;
+            }
+        }
+
+    }
+}
+
+  .registerItem {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    @include mobile {
+            input{
+                width: 90%;
+                
+            }
+        }
+      label{
+        color: $gray;
+        margin-left: 10px;
+        margin: 5px 0px;
+        font-size: 14px;
+
+      }
+      input{
+        color: $maincolor;
+        padding: 5px 10px;
+        border-radius: 20px;
+
+      }
+      button{
+        margin-top: 10px;
+        border: 1px solid $borderColor;
+        border-radius: 20px;
+        padding: 5px 20px;
+        &:hover{
+            background-color: $hover;
+            color: $maincolor;
+        }
+      }
+  }

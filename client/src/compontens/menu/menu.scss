@@ -1,0 +1,37 @@
+
+
+@import "../../global.scss";
+.menu{
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    top: 80px;
+    left: 0;
+    z-index: 999;
+    color: $maincolor;
+    @include mobile{
+        display: none;
+    }
+    
+    .menuwrapper{
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: $maincolor;
+        color: $white;
+        ul{
+           
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+
+        }
+    }
+    
+}

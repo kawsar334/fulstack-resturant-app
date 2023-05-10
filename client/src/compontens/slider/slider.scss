@@ -1,0 +1,65 @@
+@import "../../global.scss";
+
+.slider {
+    width: 90vw;
+    height: 75vh;
+    margin: 0 auto;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0px;
+}
+
+.mySwiper {
+    width: 60vw;
+    height: 100%;
+    @include mobile{
+        width:90vw;
+    }
+    .item {
+        background-color: transparent;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-direction: column;
+        position: relative;
+        .itemtop{
+            width: 100%;
+            img{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+        .itembottom{
+            position: absolute;
+            background-color: $maincolor;
+            bottom: 40px;
+            padding: 10px 20px;
+            text-align: center;
+            h1{
+                font-size: 50px;
+                text-transform: uppercase;
+                color: $white;
+                font-weight: 600;
+                @include mobile{
+                    font-size: 30px;
+                }
+            }
+            a{
+                border: 1px solid $star;
+                padding: 5px 10px ;
+                background-color: $maincolor;
+                color: $btn;
+                border-radius: 20px;
+                &:hover{
+                    background-color: $white;
+                    color: $maincolor;
+                }
+            }
+        }
+    }
+}
