@@ -1,0 +1,37 @@
+.userList{
+    flex: 4;
+    text-align: center;
+    margin: 10px ;
+    margin-left: 20px;
+
+}
+
+.userTrasaction{
+    color: gray;
+}
+.userIgm{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+}
+.addbtn{
+    display: block;
+    align-self:  center;
+    width: max-content;
+    margin: 10px 0px;
+    margin-left: auto;
+    background-color: blue;
+    color: white;
+}
+
+
+@media screen and (max-width:778px ) {
+    .userList{
+        /* width: max-content; */
+        overflow-x: auto;
+
+    }
+    
+}
