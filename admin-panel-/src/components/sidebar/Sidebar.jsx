@@ -14,7 +14,7 @@ const Sidebar = () => {
             <div className="sidebar_menu">
                 <h3 className="sidebar_title">Dashboard</h3>
                 <ul className="sidebar_list">
-                      <li className="sidebarlistitem"> <Link to="/user"><i class="fa-solid fa-xmarks-lines"></i> <span className="sidebar_link">user</span></Link></li>
+                      <li className="sidebarlistitem"> <Link to="/"><i class="fa-solid fa-xmarks-lines"></i> <span className="sidebar_link">user</span></Link></li>
                       <li className="sidebarlistitem"> <Link to="/produclist"><i class="fa-solid fa-arrow-trend-up"></i> <span className="sidebar_link">Produclist</span></Link></li>
                       <li className="sidebarlistitem"> <Link to=""><i class="fa-solid fa-bars-staggered"></i> <span className="sidebar_link">Sales</span></Link></li>
 

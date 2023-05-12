@@ -1,0 +1,59 @@
+
+
+.login{
+    flex:9;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.loginform{
+    width: 300px;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.4);
+    border-radius: 10px;
+
+}
+
+
+.loginitem{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+
+.loginitem>label{
+    color: gray;
+    margin:10px 0px;
+    font-size: 14px;
+
+}
+.loginitem>input{
+    border-radius: 10px;
+    border: 1px solid lightgray;
+    padding: 5px 10px;
+    outline: none;
+}
+.loginbtn{
+    border: 1px solid lightgray;
+    margin: 10px ;
+    padding: 5px 10px;
+    border-radius: 10px;
+    transition: all 1s ease;
+    background-color: teal;
+    color: white;
+}
+.loginbtn:hover{
+    background-color: transparent;
+    color: teal;
+    
+
+}

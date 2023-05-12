@@ -13,12 +13,12 @@ const Login = () => {
     e.preventDefault()
     try{
       const res = await axios.post("/auth/login/", {email, password});
-      console.log(res.data);
       localStorage.setItem("user", res.data.others._id)
       message.success(`Login sucssefully`)
       if(res.data.success){
         navigate("/");
       }
+      console.log(res.data);
     }catch(err){
       console.log(err);
       if(err){

@@ -16,10 +16,11 @@ export const Register = async (req, res, next) => {
             });
         }else{
 
-            const newUser = new User({ ...req.body, password: hashedPassword });
+            const newUser = new User({...req.body, password: hashedPassword });
             const savedUser = await newUser.save();
+
             res.status(200).json({
-                message: "user Registerd  !",
+                message: "user Registerd !",
                 data: savedUser,
                 success: true,
             });
@@ -35,7 +36,14 @@ export const Register = async (req, res, next) => {
 
 export const Login = async (req, res, next) => {
     try {
+        const {email, password} = req.body
         const user = await User.findOne({ email: req.body.email });
+        if(email==="" || password===""){
+            return res.status(200).json({
+                message: "please fill all these data",
+                success: false,
+            });
+        }
         if (!user) {
             return res.status(200).json({
                 message: "user Not found !",
@@ -56,6 +64,7 @@ export const Login = async (req, res, next) => {
                     success: true,
                     others,
                     token,
+                    id:user._id
                 })
             }
         }

@@ -12,11 +12,15 @@ import orderRoute from "./routes/order.js"
 import productRoute from "./routes/product.js";
 import multer from "multer";
 import path from "path";
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename,)
 
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
+app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 
 
 app.use("/api/auth/", authRoute)
@@ -33,8 +37,7 @@ const storage = multer.diskStorage({
         cb(null, uploadfiles)
     },
     filename:(req, file, cb)=>{
-        // const fielName = file.originalname
-        // const fileExt = path.extname(file.originalname);
+        
         const name = Date.now() +"-"+file.originalname
         cb(null,name)
     }

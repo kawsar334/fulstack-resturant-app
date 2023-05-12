@@ -16,7 +16,7 @@ export const verifyToken = async(req, res, next)=>{
         }
     })
     }else{
-        return res.status(401).json({
+        return res.status(200).json({
             message: "you are not authenticated !",
             success:false,
         })
@@ -31,7 +31,7 @@ export const veritokenAndAutorization = (req, res, next)=>{
         if(req.user.id === req.params.id || req.user.isAdmin){
             next();
         }else{
-            return res.status(403).json({
+            return res.status(200).json({
                 message: "you are not allowed!",
                 success:false
             });
@@ -46,7 +46,7 @@ export const verifyTokenAndAdmin = (req, res, next)=>{
             if(req.user.isAdmin){
                 next();
             }else{
-                return res.status(403).json({
+                return res.status(200).json({
                     message: "you are not allowed!",
                     success:false,
                 });

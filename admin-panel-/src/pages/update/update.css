@@ -1,0 +1,90 @@
+
+
+
+.update{
+    flex: 9;
+}
+.updatewrapper{
+    width: 90%;
+    background-color: white;
+    margin: 0px auto;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.updateform{
+    width: 100%;
+    display: flex;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.item{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+}
+
+.item>input{
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid lightgray;
+    padding: 5px 10px;
+}
+.item>label{
+    margin: 5px ;
+    color: black;
+    text-transform: capitalize;
+}
+.updateleft{
+    width: 45%;
+    background-color: white;
+}
+.updateright{
+    width: 45%;
+}
+
+.avatar{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.submitbtn{
+    border: 1px solid lightgrey;
+    width: max-content;
+    margin: 5px ;
+    align-self: center;
+    border-radius: 10px;
+    padding: 5px 10px ;
+    background-color: teal;
+    color: white;
+    transition: all 1s ease;
+}
+.submitbtn:hover{
+    background-color: transparent;
+    color: teal;
+}
+
+
+@media only screen and (max-width:778px) {
+
+    .updateform {
+           
+            flex-direction: column;
+        }
+    .updateleft{
+        width: 100%;
+    }
+    .updateright{
+        width: 100%;
+    }
+   
+}
