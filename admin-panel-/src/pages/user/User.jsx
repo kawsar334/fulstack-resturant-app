@@ -2,20 +2,17 @@ import { message } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom"
-import "./user.css"
+import "./user.css";
 
 const User = () => {
-
     const id = useLocation().pathname.split("/")[2];
-    console.log(id);
     const [user, setUser] = useState({});
-
     useEffect(() => {
         const getUserData = async () => {
             try {
                 const res = await axios.get(`/user/find/${id}`);
                 console.log(res.data);
-                if (res.data.success){
+                if (res.data.success) {
                     message.success(res.data.message)
                     setUser(res.data.user)
                 } else {
@@ -32,10 +29,10 @@ const User = () => {
         <div className="user">
             <div className="userwrapper">
                 <div className="userleft">
-                    <img src="https://images.pexels.com/photos/9799876/pexels-photo-9799876.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Loading..." className="userimg" />
+                    <img src={user?.img} alt="Image Not found" className="userimg" />
                 </div>
                 <form className="userright">
-               <Link to={`/update/${user?._id}`}><i className="fa-regular fa-pen-to-square text-primary p-1  rounded shadow"></i></Link>
+                    <Link to={`/update/${user?._id}`}><i className="fa-regular fa-pen-to-square text-primary p-1  rounded shadow"></i></Link>
                     <h1 className="username"> <span className="usernamespan">{user?.username}</span> Details </h1>
                     <p className="userItem"><span className="bold">_id:</span>{user?._id}  <Link to={`/update/${user?._id}`}><i className="fa-regular fa-pen-to-square text-primary p-1  rounded shadow"></i></Link></p>
                     <p className="userItem"><span className="bold">Name:</span>{user?.username} <Link to={`/update/${user?._id}`}><i className="fa-regular fa-pen-to-square text-primary p-1  rounded shadow"></i></Link></p>

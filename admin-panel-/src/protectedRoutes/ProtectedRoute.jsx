@@ -12,18 +12,19 @@ const ProtectedRoute = ({ children }) => {
     const dispatch = useDispatch();
     const admin = useSelector((state) => state?.user?.user?.isAdmin)
     const id = localStorage.getItem("userId");
-    const navigate= useNavigate();
+    const navigate = useNavigate();
 
+
+    // getting user data from backend 
     const getUserData = async () => {
         try {
             const res = await axios.get(`/user/find/${id}`);
             if (localStorage.getItem("userId" || res.data.success)) {
                 dispatch({ type: "GET_USER", payload: res.data.user });
-                if(!admin){
+                if (!admin) {
                     message.error("Only Admin can access here ! ");
                 }
             };
-
         } catch (err) {
             console.log(err);
         }
@@ -34,15 +35,11 @@ const ProtectedRoute = ({ children }) => {
         };
     }, [id]);
 
-    if (!admin ) {
+    if (!admin) {
         return <Navigate to="/login" />
-    }else{
-        return children
-
+    } else {
+        return children ;
     }
-   
-
-
 }
 
 

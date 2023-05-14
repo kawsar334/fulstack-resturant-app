@@ -15,14 +15,15 @@ import Login from './pages/login/Login';
 import ProtectedRoute from './protectedRoutes/ProtectedRoute';
 import { useSelector } from 'react-redux';
 import UpdateProduct from './pages/updateProduct/UpdateProduct';
+import NewProduct from './pages/newproduct/NewProduct';
 function App() {
   const admin = useSelector((state) => state?.user?.user?.isAdmin);
 
   return (
     <>
-    {admin &&<Topbar />}
+    {admin ===true && <Topbar />}
  <div className='main_container'>
-   {admin && <Sidebar />}
+   {admin ===true && <Sidebar />}
 <Routes>
           {/* <Route path='/' element={<Home />} /> */}
           <Route path='/' element={
@@ -43,19 +44,24 @@ function App() {
           </ProtectedRoute>
           } />
           <Route path='/product/:id' element={
-            // <ProtectedRoute>
+            <ProtectedRoute>
               <Product />
-            // </ProtectedRoute>
+            </ProtectedRoute>
           } />
           <Route path='/update/:id' element={
             <ProtectedRoute>
               <Update />
-            </ProtectedRoute>
+             </ProtectedRoute>
           } />
           <Route path='/updateproduct/:id' element={
             <ProtectedRoute>
               <UpdateProduct />
             </ProtectedRoute>
+          } />
+          <Route path='/newproduct' element={
+            // <ProtectedRoute>
+              <NewProduct/>
+            // </ProtectedRoute>
           } />
           <Route path='/register' element={<Register />}/>
           <Route path='/login' element={<Login />} />

@@ -6,8 +6,7 @@ import { User } from "../models/User.js";
 //UPDATE USER
 export const updateUser = async (req, res, next) => {
     try {
-        const { username, email, } = req.body;
-        const updatedUser = await User.findByIdAndUpdate(req.params.id, { $set: { username, email } }, { new: true });
+        const updatedUser = await User.findByIdAndUpdate(req.params.id, {$set: req.body },{new: true });
         res.status(200).json({
             message: `${updatedUser.username} Account updated successfully  !`,
             updatedUser,
@@ -93,5 +92,22 @@ export const getUserStats = async (req, res, next) => {
 
     } catch (err) {
         next(err);
+    }
+}
+
+// read Notification 
+export const ReadNotification = async (req, res, next) => {
+    try {
+
+    } catch (err) {
+        next(err)
+    }
+}
+// unread Notification 
+export const UnReadNotification = async (req, res, next) => {
+    try {
+
+    } catch (err) {
+        next(err)
     }
 }

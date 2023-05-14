@@ -1,16 +1,30 @@
 // ,
 import { Product } from "../models/Product.js"
+import { User } from "../models/User.js";
 
 //ADD PRODUCT
 export const addProduct = async (req, res, next) => {
     try {
         const newProduct = new Product({ ...req.body, userId: req.user.id });
         const saveProduct = await newProduct.save();
+        const admins = await User.find({ isAdmin: true });
+        const data = {
+            message:`Created New product `,
+            product:saveProduct
+        }
+      
+    const lists = await Promise.all(admins.map((admin)=>{
+            return User.findOneAndUpdate(admin, {$push:{notification:{...data}}});
+       }));
+
         res.status(200).json({
-            message: "product created successfully",
-            saveProduct,
-            success: true,
-        });
+                message: "product created successfully",
+                saveProduct, 
+                success: true,
+
+            });
+       
+       
     } catch (err) {
         next(err);
     }

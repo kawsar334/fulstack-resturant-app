@@ -1,43 +1,116 @@
-import { useLocation } from "react-router-dom"
+import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom"
 import "./updateproduct.css"
-
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import app from "../../firebase";
+import { message } from "antd";
+import axios from "axios";
 const UpdateProduct = () => {
+    const id = useLocation().pathname.split("/")[2];
+    const [file, setFile] = useState(null);
+    const [inputs, setInputs] = useState({});
+    const [categories, setCategories] = useState([]);
+    const [fileProgress, setFileProgress] = useState(0);
+    const [error, setError] = useState("");
+    const navigate = useNavigate()
+
+    // handling multiple inputs using onchange event 
+    const handleChange = (e) => {
+        setInputs((prev) => {
+            return {
+                ...prev, [e.target.name]: e.target.value
+            }
+        });
+    }
+
+    // sending data backend and storing in database 
+    const handleUpdate = async (e) => {
+        e.preventDefault();
+        const fileName = new Date().getTime() + file.name;
+        const storage = getStorage(app);
+        const storageRef = ref(storage, fileName)
+
+        const uploadTask = uploadBytesResumable(storageRef, file)
+        uploadTask.on('state_changed',
+            (snapshot) => {
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                console.log('Upload is ' + progress + '% done');
+                setFileProgress(progress)
+                switch (snapshot.state) {
+                    case 'paused':
+                        console.log('Upload is paused');
+                        setError('Upload is paused');
+                        break;
+                    case 'running':
+                        console.log('Upload is running');
+                        setError('Upload is running');
+                        break;
+                }
+            },
+            (error) => {
+                console.log(error)
+                message.error("File not uploaded !")
+
+            },
+            () => {
+                // Upload completed successfully, now we can get the download URL
+                getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+                    console.log('File available at', downloadURL);
+                    // sending data to backend 
+                    try {
+                        const res = await axios.put(`/product/${id}`, { ...inputs, img: downloadURL, categories: categories, });
+                        console.log(res.data)
+                        if (res.data.success) {
+                            message.success(res.data.message);
+                            navigate(`/product/${res.data.updatedProduct._id}`)
+                        }
+                    } catch (err) {
+                        console.log(err);
+                        if (err) {
+                            message.error("something went wrong !")
+                        }
+
+                    }
+                    // 
+                });
+            }
+        );
+    }
 
 
-    const id = useLocation().pathname.split("/")[2]
-    console.log(id);
+
     return (
         <div className="update">
             <div className="updatewrapper">
-                <h1>Edit user information </h1>
-                <form className="updateform">
+                <h1 className="text-center my-3 ">Edit Product details </h1>
+                <form className="updateform" onSubmit={handleUpdate}>
                     <div className="updateleft">
                         <div className="item">
                             <label htmlFor="title">title</label>
-                            <input type="text" placeholder="title" />
+                            <input  required name="title" type="text" placeholder="title" onChange={handleChange} />
                         </div>
                         <div className="item">
-                            <label htmlFor="">Desription</label>
-                            <input type="text" placeholder="Product DESC.... " />
+                            <label htmlFor="desc">Desription</label>
+                            <input  required type="text" name="desc" placeholder="Product DESC.... " onChange={handleChange} />
                         </div>
                         <div className="item">
-                            <label htmlFor="password">password</label>
-                            <input type="text" placeholder="password" />
+                            <label htmlFor="price">price</label>
+                            <input  required type="number" name="price" placeholder="Price" onChange={handleChange} />
                         </div>
                     </div>
                     <div className="updateright">
-                        <div className="item">
-                            <img src="https://images.pexels.com/photos/718742/pexels-photo-718742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Loading..." className="avatar" />
-                        </div>
+                       {fileProgress? <span className="text-danger">uloading. {parseInt(fileProgress)}%</span>:<> {file && <div className="item">
+                            <img src={URL.createObjectURL(file)} alt="Loading..." className="avatar" />
+                        </div>}</>}
+                        {error&& <span>{error}</span>}
+
                         <div className="item">
                             <label htmlFor="categories">categories</label>
-                            <input type="text" placeholder="categories" />
-
-                            
+                            <input  required type="text" placeholder="write categories using comma , " name="categories" onChange={(e) => setCategories(e.target.value.split(","))} />
                         </div>
                         <div className="item">
                             <label htmlFor="file">upload image</label>
-                            <input type="file" name="file" />
+                            <input  required type="file" name="file" onChange={(e) => setFile(e.target.files[0])} />
                         </div>
                         <div className="item">
                             <button className="submitbtn">Submit </button>
