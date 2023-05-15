@@ -5,6 +5,7 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/
 import app from "../../firebase";
 import { message } from "antd";
 import axios from "axios";
+import { useDispatch } from "react-redux";
 const UpdateProduct = () => {
     const id = useLocation().pathname.split("/")[2];
     const [file, setFile] = useState(null);
@@ -12,7 +13,8 @@ const UpdateProduct = () => {
     const [categories, setCategories] = useState([]);
     const [fileProgress, setFileProgress] = useState(0);
     const [error, setError] = useState("");
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const dispatch = useDispatch()
 
     // handling multiple inputs using onchange event 
     const handleChange = (e) => {
@@ -58,16 +60,19 @@ const UpdateProduct = () => {
                     console.log('File available at', downloadURL);
                     // sending data to backend 
                     try {
+                        dispatch({ type: "SHOW_LOADING",payload:true })
                         const res = await axios.put(`/product/${id}`, { ...inputs, img: downloadURL, categories: categories, });
                         console.log(res.data)
                         if (res.data.success) {
                             message.success(res.data.message);
                             navigate(`/product/${res.data.updatedProduct._id}`)
                         }
+                        dispatch({ type: "HIDE_LOADING",payload:false })
                     } catch (err) {
                         console.log(err);
                         if (err) {
                             message.error("something went wrong !")
+                            dispatch({ type: "SHOW_LOADING",payload:true })
                         }
 
                     }

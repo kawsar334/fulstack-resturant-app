@@ -4,11 +4,11 @@
 
 import {combineReducers, createStore} from "redux";
 import UserRedux from "./userRedux";
-
+import alertRedux from "./alertRedux"
 const rootReducer = combineReducers({
    
         user: UserRedux,
-        
+        alert:alertRedux
 
     
 })

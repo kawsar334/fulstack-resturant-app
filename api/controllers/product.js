@@ -89,11 +89,11 @@ export const getAllProducts = async (req, res, next) => {
     try {
         let products;
         if (qNew) {
-            products = await Product.find().sort({ createdAt: -1 }).limit(8)
+            products = await Product.find().sort({ createdAt: -1 })
         } else if (qCategory) {
-            products = await Product.find({ categories: { $in: [qCategory] } }).limit(8)
+            products = await Product.find({ categories: { $in: [qCategory] } })
         } else {
-            products = await Product.find().limit(8);
+            products = await Product.find();
         }
         res.status(200).json({
             message: "All products lists",

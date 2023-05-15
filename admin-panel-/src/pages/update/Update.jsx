@@ -5,11 +5,13 @@ import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/
 import app from "../../firebase";
 import { message } from "antd";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import Loader from "../../components/loader/Loader";
 
 
 const Update = () => {
 
-
+    const loading = useSelector((state) => state.alert.loading);
     const id = useLocation().pathname.split("/")[2];
     const navigate = useNavigate();
     const [file, setFile] = useState(null);
@@ -77,7 +79,7 @@ const Update = () => {
 
     return (
         <div className="update">
-            <div className="updatewrapper">
+          {loading?<Loader/>:<div className="updatewrapper">
                 <h1 className="text-center my-5">Edit user information </h1>
                 <form className="updateform" onSubmit={handleUpdate}>
                     <div className="updateleft">
@@ -115,7 +117,7 @@ const Update = () => {
                         </div>
                     </div>
                 </form>
-            </div>
+            </div>}
         </div>
     )
 }

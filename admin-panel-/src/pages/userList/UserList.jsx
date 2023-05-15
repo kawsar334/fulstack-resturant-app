@@ -4,21 +4,31 @@ import { Link } from "react-router-dom"
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { message } from "antd"
+import { useDispatch, useSelector } from "react-redux";
+import Loader from "../../components/loader/Loader";
 
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
   const PF = "http://localhost:4004/uploads/";
+  const dispatch = useDispatch();
+  const loading = useSelector((state) => state.alert.loading);
+
 
 // getting user list from backend 
   useEffect(() => {
     const getUsers = async () => {
+      dispatch({ type: "SHOW_LOADING", payload:true })
       try {
         const res = await axios.get("/user/?new=true");
         message.success(`${res?.data?.users?.length} ${res?.data?.message}`);
         setUsers(res?.data?.users);
+        dispatch({ type: "HIDE_LOADING", payload:false })
+
       } catch (err) {
         message.error("something went wrong!");
+        dispatch({ type: "SHOW_LOADING", payload:true })
+
       }
     }
     getUsers();
@@ -28,6 +38,7 @@ const UserList = () => {
   // handling delte function
   const handleDelete = async (id) => {
     try {
+     
       if (window.confirm("Are you sure delete this user?")) {
         const res = await axios.delete(`/user/${id}`);
         if (res.data.success) {
@@ -39,11 +50,13 @@ const UserList = () => {
       };
     } catch (err) {
       console.log(err);
+      dispatch({ type: "SHOW_LOADING", payload:true })
     }
   }
 
   return (
-    <div className="userList" >
+    <>
+    {loading? <Loader/>:<div className="userList" >
       <Link to="/register" className="btn  addbtn ">
         Add new user
       </Link>
@@ -72,7 +85,8 @@ const UserList = () => {
         </tbody>
       </table>
 
-    </div>
+    </div>}
+    </>
   )
 }
 

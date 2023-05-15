@@ -3,17 +3,26 @@
 
 
 const intialState = {
-    user:null
+    loading:false
 }
 
 
-const userRedux = (state=intialState, action)=>{
+const alertRedux = (state=intialState, action)=>{
 
 
     switch(action.type){
-        case "GET_USER":
+        case "SHOW_LOADING":
             return {
-                ...state, user:action.payload
+                ...state, loading:action.payload
+            }
+            
+        case "HIDE_LOADING":
+            return {
+                ...state, loading:action.payload
+            } 
+            default :
+            return {
+                state
             }
     }
 
@@ -22,4 +31,4 @@ const userRedux = (state=intialState, action)=>{
 
 
 
-export default userRedux;
+export default alertRedux;

@@ -1,6 +1,7 @@
 import { message } from "antd";
 import axios from "axios";
 import { useState } from "react"
+import { useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom"
 import "./login.scss"
 
@@ -9,6 +10,8 @@ const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+ 
+
   const handleSubmit = async (e)=>{
     e.preventDefault()
     try{
@@ -27,8 +30,8 @@ const Login = () => {
     }
   }
 
-  return (
-    <div className="login">
+  return (<>
+    {<div className="login">
         <div className="loginwrapper">
             <form onSubmit={handleSubmit}>
                 <h1>Sign in </h1>
@@ -38,7 +41,8 @@ const Login = () => {
             </form>
             <p>Don't have any account ? <NavLink to="/register">Register</NavLink></p>
         </div>
-    </div>
+    </div>}
+  </>
   )
 }
 

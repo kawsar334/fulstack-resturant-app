@@ -2,6 +2,7 @@ import { message } from "antd";
 import axios from "axios";
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from "firebase/storage";
 import { useState } from "react"
+import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import app from "../../firebase";
 import "./register.css"
@@ -12,7 +13,7 @@ const Register = () => {
     const navigate = useNavigate();
     const [fileProgress, setFileProgress] = useState(null);
     const [error, setError] = useState("")
-
+    const dispatch = useDispatch()
     //handling onchange event ///
     const handleChange = (e) => {
         setUser((prev => {
@@ -56,9 +57,13 @@ const Register = () => {
                 // Upload completed successfully, now we can get the download URL
                 getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
                     console.log('File available at', downloadURL);
+                    dispatch({ type: "SHOW_LOADING", payload:true})
+
                     try {
                         const res = await axios.post(`/auth/register/`, { ...user, img: downloadURL });
                         console.log(res.data);
+                        dispatch({ type: "HIDE_LOADING", payload:false })
+
                         if (res.data.success) {
                             message.success(res.data.message)
                             navigate("/login")
@@ -68,6 +73,8 @@ const Register = () => {
                     } catch (err) {
                         console.log(err.response.data);
                         message.error("Something went wrong !");
+                        dispatch({ type: "SHOW_LOADING", payload:true })
+
                     }
                 });
             }
